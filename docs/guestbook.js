@@ -88,7 +88,7 @@
       return;
     }
     try {
-      tokens = await appID.silentSignin();
+      //tokens = await appID.silentSignin();
       //if (tokens) {
         //document.getElementById('id_token').textContent = JSON.stringify(tokens.idTokenPayload);
       //}
