@@ -95,7 +95,7 @@
     } catch (e) {
       console.error(e);
     }
-    $('#login').addEventListener('click', async () => {
+    document.querySelector('#login').addEventListener('click', async () => {
       //document.getElementById('login').setAttribute('class', 'hidden');
       //document.getElementById('error').textContent = '';
 
@@ -111,7 +111,7 @@
         console.error(e);
       }
     });
-    $('#changePassword').addEventListener('click', async () => {
+    document.querySelector('#changePassword').addEventListener('click', async () => {
       try {
         await appID.changePassword(tokens.idToken);
       } catch (e) {
