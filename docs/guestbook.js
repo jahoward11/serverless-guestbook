@@ -73,7 +73,7 @@
     });
   });
 
-  $(document).ready(async function() {
+  (async function() {
     prepareTemplates();
 
     const appID = new AppID();
@@ -118,5 +118,5 @@
         console.error(e);
       }
     });
-  });
+  })();
 })();
