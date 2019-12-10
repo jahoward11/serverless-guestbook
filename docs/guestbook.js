@@ -12,7 +12,7 @@
         type: 'GET',
         url: `${apiUrl}/entries`,
         dataType: 'json',
-        authorization: 'Bearer ' + tokens && tokens.accessToken,
+        headers: { 'Authorization': 'Bearer ' + tokens && tokens.accessToken },
       });
     },
     // add a single guestbood entry
@@ -28,7 +28,7 @@
           comment,
         }),
         dataType: 'json',
-        authorization: 'Bearer ' + tokens && tokens.accessToken,
+        headers: { 'Authorization': 'Bearer ' + tokens && tokens.accessToken },
       });
     }
   };
@@ -45,7 +45,6 @@
       if (!result.entries) {
         return;
       }
-
       const context = {
         entries: result.entries
       }
@@ -60,7 +59,6 @@
   // reload entries on success
   $(document).on('submit', '#addEntry', function(e) {
     e.preventDefault();
-
     guestbook.add(
       $('#name').val().trim(),
       $('#email').val().trim(),
@@ -98,7 +96,6 @@
     document.querySelector('#login').addEventListener('click', async () => {
       //document.getElementById('login').setAttribute('class', 'hidden');
       //document.getElementById('error').textContent = '';
-
       try {
         tokens = await appID.signin();
         loadEntries();
