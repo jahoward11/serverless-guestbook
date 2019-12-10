@@ -2,7 +2,7 @@
  * Web application
  */
 (function() {
-  let entriesTemplate, tokens;
+  var entriesTemplate, tokens;
   const apiUrl = 'https://9e036e2d.us-south.apigw.appdomain.cloud/guestbook';
   
   const guestbook = {
