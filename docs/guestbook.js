@@ -59,8 +59,8 @@
   // reload entries on success
   $(document).on('submit', '#addEntry', function(e) {
     e.preventDefault();
-    if (!tokens.idTokenPayload.roles
-    || !tokens.idTokenPayload.roles.some(r => /^lead$/i.test(r))) {
+    if (!tokens || !tokens.accessTokenPayload.roles
+    || !tokens.accessTokenPayload.roles.some(r => /^lead$/i.test(r))) {
       console.log("Lead role is required.");
       return;
     }
@@ -115,8 +115,8 @@
         */
         //if (tokens.accessTokenPayload.roles
         //&& tokens.accessTokenPayload.roles.some(r => r.name === "Contributor")) {
-        if (tokens.idTokenPayload.roles
-        && tokens.idTokenPayload.roles.some(r => /^contributor$/i.test(r))) {
+        if (tokens.accessTokenPayload.roles
+        && tokens.accessTokenPayload.roles.some(r => /^contributor$/i.test(r))) {
           loadEntries();
         }
         //let userInfo = await appID.getUserInfo(tokens.accessToken);
