@@ -1,7 +1,7 @@
 /**
  * Web application
  */
-(async function() {
+(function() {
   let entriesTemplate, tokens;
   const apiUrl = 'https://9e036e2d.us-south.apigw.appdomain.cloud/guestbook';
   
@@ -73,7 +73,7 @@
     });
   });
 
-  $(document).ready(function() {
+  $(document).ready(async function() {
     prepareTemplates();
 
     const appID = new AppID();
