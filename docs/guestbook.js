@@ -12,7 +12,7 @@
         type: 'GET',
         url: `${apiUrl}/entries`,
         dataType: 'json',
-        headers: { 'Authorization': 'Bearer ' + tokens && tokens.accessToken },
+        headers: { 'Authorization': 'Bearer ' + (tokens && tokens.accessToken) },
       });
     },
     // add a single guestbood entry
@@ -28,7 +28,7 @@
           comment,
         }),
         dataType: 'json',
-        headers: { 'Authorization': 'Bearer ' + tokens && tokens.accessToken },
+        headers: { 'Authorization': 'Bearer ' + (tokens && tokens.accessToken) },
       });
     }
   };
@@ -59,6 +59,11 @@
   // reload entries on success
   $(document).on('submit', '#addEntry', function(e) {
     e.preventDefault();
+    if (!tokens.idTokenPayload.roles
+    || !tokens.idTokenPayload.roles.some(r => /^lead$/i.test(r))) {
+      console.log("Lead role is required.");
+      return;
+    }
     guestbook.add(
       $('#name').val().trim(),
       $('#email').val().trim(),
@@ -98,7 +103,22 @@
       //document.getElementById('error').textContent = '';
       try {
         tokens = await appID.signin();
-        loadEntries();
+        /* // if you're working with the Node.js SDK
+        appID.get("/protected", passport.authenticate(WebAppStrategy.STRATEGY_NAME), function(req, res){
+          if(WeAppStrategy.hasScope(req, "read write")){
+            res.json(req.user);
+          }
+          else {
+            res.send("insufficient scopes");
+          }
+        });
+        */
+        //if (tokens.accessTokenPayload.roles
+        //&& tokens.accessTokenPayload.roles.some(r => r.name === "Contributor")) {
+        if (tokens.idTokenPayload.roles
+        && tokens.idTokenPayload.roles.some(r => /^contributor$/i.test(r))) {
+          loadEntries();
+        }
         //let userInfo = await appID.getUserInfo(tokens.accessToken);
         //let decodeIDToken = tokens.idTokenPayload;
         //document.getElementById('welcome').textContent = 'Hello, ' + decodeIDToken.name;
@@ -109,6 +129,7 @@
       }
     });
     document.querySelector('#changePassword').addEventListener('click', async () => {
+      if (!tokens) { console.log("Log in first."); return; }
       try {
         await appID.changePassword(tokens.idToken);
       } catch (e) {
