@@ -123,6 +123,7 @@
           loadEntries();
         }
         */
+        loadEntries();
         //let userInfo = await appID.getUserInfo(tokens.accessToken);
         //let decodeIDToken = tokens.idTokenPayload;
         //document.getElementById('welcome').textContent = 'Hello, ' + decodeIDToken.name;
